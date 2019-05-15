@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app.uid }}
+  labels:
+    app: {{ .Values.app.uid }}
+    chart: {{ template "guardian.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: 4000
+      protocol: TCP
+  selector:
+    app: {{ .Values.app.uid }}
+    release: {{ .Release.Name }}

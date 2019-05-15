@@ -1,0 +1,13 @@
+app:
+  uid: guardian
+
+replicaCount: 1
+
+image:
+  repository: guardian
+  tag: latest
+  pullPolicy: Never # tell minikube to use local image
+
+service:
+  containerPort: 4000
+  port: 80

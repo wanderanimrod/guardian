@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1beta1
+metadata:
+  name: {{ .Values.app.uid }}
+  labels:
+    app: {{ .Values.app.uid }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.uid }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.uid }}
+        release: {{ .Release.Name }}
+        chart: {{ template "guardian.chart" . }}
+    spec:
+      containers:
+        - name: {{ .Values.app.uid }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["foreground"]
+          ports:
+            - containerPort: {{ .Values.service.containerPort }}
