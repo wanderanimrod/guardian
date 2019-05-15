@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: guardian
+webhooks:
+- name: deployment-policy.swa.com
+  clientConfig:
+    service:
+      namespace: default
+      name: guardian
+      path: /api/validate
+  rules:
+  - apiGroups:
+    - ""
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    resources:
+    - pods
+    - deployments
+    - services
+    scope: "*"
+  
+  timeoutSeconds: 5
