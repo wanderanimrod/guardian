@@ -9,7 +9,13 @@ use Mix.Config
 
 # Configures the endpoint
 config :guardian, GuardianWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "localhost", port: 443],
+  https: [
+    port: 443,
+    otp_app: :guardian,
+    keyfile: "priv/keys/guardian.key",
+    certfile: "priv/keys/guardian.cert"
+  ],
   secret_key_base: "RWJU15rKSpikfE/AJ6knIqqZlnnVBaHYLPhlEFUEZ+Z1HNKmdzfJe0n48NsMJjYt",
   render_errors: [view: GuardianWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Guardian.PubSub, adapter: Phoenix.PubSub.PG2]
