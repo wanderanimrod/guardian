@@ -1,0 +1,104 @@
+{
+  "apiVersion": "admission.k8s.io/v1beta1",
+  "kind": "AdmissionReview",
+  "request": {
+    "dryRun": false,
+    "kind": {
+      "group": "",
+      "kind": "Pod",
+      "version": "v1"
+    },
+    "namespace": "default",
+    "object": {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2019-05-20T16:17:20Z",
+        "generateName": "sample-b6d44fdb9-",
+        "labels": {
+          "app": "sample",
+          "pod-template-hash": "b6d44fdb9"
+        },
+        "name": "sample-b6d44fdb9-zj6xf",
+        "namespace": "default",
+        "ownerReferences": [{
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "sample-b6d44fdb9",
+            "uid": "b22355cf-7b1a-11e9-a815-ae8cae0227c6"
+          }
+        ],
+        "uid": "be6fa803-7b1a-11e9-a815-ae8cae0227c6"
+      },
+      "spec": {
+        "containers": [{
+            "image": "gcr.io/hello-minikube-zero-install/hello-node",
+            "imagePullPolicy": "Always",
+            "name": "node",
+            "resources": {},
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [{
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "default-token-w7whp",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [{
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }, {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [{
+            "name": "default-token-w7whp",
+            "secret": {
+              "secretName": "default-token-w7whp"
+            }
+          }
+        ]
+      },
+      "status": {
+        "phase": "Pending",
+        "qosClass": "BestEffort"
+      }
+    },
+    "oldObject": nil,
+    "operation": "CREATE",
+    "resource": {
+      "group": "",
+      "resource": "pods",
+      "version": "v1"
+    },
+    "uid": "be6fb7bf-7b1a-11e9-a815-ae8cae0227c6",
+    "userInfo": {
+      "groups": [
+        "system:serviceaccounts",
+        "system:serviceaccounts:kube-system",
+        "system:authenticated"
+      ],
+      "uid": "684d23c4-7aae-11e9-a815-ae8cae0227c6",
+      "username": "system:serviceaccount:kube-system:replicaset-controller"
+    }
+  },
+  "timeout": "5s"
+}

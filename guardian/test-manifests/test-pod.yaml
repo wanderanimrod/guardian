@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rejection-test-pod
+  labels:
+    app: rejection-test
+spec:
+  containers:
+  - name: node
+    image: gcr.io/hello-minikube-zero-install/hello-node
