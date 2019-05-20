@@ -5,7 +5,7 @@ defmodule GuardianWeb.ValidationController do
   def post(conn, params) do
     conn
     |> put_status(200)
-    |> json(disallow_all(params))
+    |> json(allowed?(params))
   end
 
   def health(conn, _) do
@@ -14,7 +14,11 @@ defmodule GuardianWeb.ValidationController do
     |> json(%{status: "The guardian is on guard 😸"})
   end
 
-  defp disallow_all(admission_review_request) do
+  defp allowed?(%{"request" => %{"object" => %{"metadata" => %{"labels" => %{"app" => "guardian"}}}}} = request) do
+    Map.put(request, :response, %{allowed: true})
+  end
+
+  defp allowed?(admission_review_request) do
     admission_denied = %{
       allowed: false,
       status: %{
