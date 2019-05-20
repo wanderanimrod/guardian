@@ -13,8 +13,8 @@ config :guardian, GuardianWeb.Endpoint,
   https: [
     port: 443,
     otp_app: :guardian,
-    keyfile: "priv/keys/guardian.key",
-    certfile: "priv/keys/guardian.cert"
+    certfile: "priv/cert/server-cert.pem",
+    keyfile: "priv/cert/server-key.pem"
   ],
   secret_key_base: "RWJU15rKSpikfE/AJ6knIqqZlnnVBaHYLPhlEFUEZ+Z1HNKmdzfJe0n48NsMJjYt",
   render_errors: [view: GuardianWeb.ErrorView, accepts: ~w(json)],
