@@ -2,10 +2,10 @@ defmodule GuardianWeb.ValidationController do
   use GuardianWeb, :controller
 
   require Logger
-  def post(conn, params) do
+  def post(conn, k8s_admission_request) do
     conn
     |> put_status(200)
-    |> json(allowed?(params))
+    |> json(allowed?(k8s_admission_request))
   end
 
   def health(conn, _) do
@@ -14,11 +14,14 @@ defmodule GuardianWeb.ValidationController do
     |> json(%{status: "The guardian is on guard 😸"})
   end
 
-  defp allowed?(%{"request" => %{"object" => %{"metadata" => %{"labels" => %{"app" => "guardian"}}}}} = request) do
-    Map.put(request, :response, %{allowed: true})
+  defp allowed?(admission_request) do
+    case admission_request do
+      %{"request" => %{"object" => %{"metadata" => %{"labels" => %{"app" => "guardian"}}}}} -> Map.put(admission_request, :response, %{allowed: true})
+      _ -> deny_admission(admission_request)
+    end
   end
 
-  defp allowed?(admission_review_request) do
+  defp deny_admission(admission_review_request) do
     admission_denied = %{
       allowed: false,
       status: %{
