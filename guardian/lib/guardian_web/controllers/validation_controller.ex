@@ -1,7 +1,6 @@
 defmodule GuardianWeb.ValidationController do
   use GuardianWeb, :controller
 
-  require Logger
   def post(conn, k8s_admission_request) do
     conn
     |> put_status(200)
